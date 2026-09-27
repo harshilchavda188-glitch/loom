@@ -1,0 +1,16 @@
+{
+  "_meta": {
+    "callsign_c": { "type": "Text", "label": "Call Sign" },
+    "distance_c": { "type": "Number", "label": "Distance" },
+    "rssi_c": { "type": "Number", "label": "Signal" },
+    "status_c": { "type": "Picklist", "label": "Status", "values": "paired,pending_received,pending_sent,unpaired" },
+    "public_key_c": { "type": "Text", "label": "Public Key" },
+    "radio_c": { "type": "Text", "label": "Radio" }
+  },
+  "records": [
+    { "Id": "0e9d5f71-6d1a-4c8d-9d25-8d3b2c1a7401", "Name": "Riya Sen", "callsign_c": "ALPHA-09", "distance_c": 12, "rssi_c": -62, "status_c": "unpaired", "public_key_c": "9F2A·77C1·A821·D03E", "radio_c": "BLE Coded PHY", "CreatedOn": "2026-09-27T08:00:00Z", "CreatedBy": { "Id": "0e9d5f71-6d1a-4c8d-9d25-8d3b2c1a7401", "Name": "Riya Sen" }, "ModifiedOn": "2026-09-27T08:00:00Z", "ModifiedBy": { "Id": "0e9d5f71-6d1a-4c8d-9d25-8d3b2c1a7401", "Name": "Riya Sen" } },
+    { "Id": "b1c83d29-9a62-45ee-b1cc-2e8a5b4f6d02", "Name": "Tarek Mansour", "callsign_c": "RECON-4", "distance_c": 118, "rssi_c": -78, "status_c": "paired", "public_key_c": "B18E·0A42·C9D0·61F4", "radio_c": "WiFi Direct", "CreatedOn": "2026-09-27T07:00:00Z", "CreatedBy": { "Id": "b1c83d29-9a62-45ee-b1cc-2e8a5b4f6d02", "Name": "Tarek Mansour" }, "ModifiedOn": "2026-09-27T07:00:00Z", "ModifiedBy": { "Id": "b1c83d29-9a62-45ee-b1cc-2e8a5b4f6d02", "Name": "Tarek Mansour" } },
+    { "Id": "4f7a2e11-2c85-4b96-a5d8-1f0c7e3b9a03", "Name": "Mina Park", "callsign_c": "ECHO-22", "distance_c": 34, "rssi_c": -69, "status_c": "pending_received", "public_key_c": "44D1·9C30·AB12·E88F", "radio_c": "BLE Coded PHY", "CreatedOn": "2026-09-26T18:00:00Z", "CreatedBy": { "Id": "4f7a2e11-2c85-4b96-a5d8-1f0c7e3b9a03", "Name": "Mina Park" }, "ModifiedOn": "2026-09-27T06:00:00Z", "ModifiedBy": { "Id": "4f7a2e11-2c85-4b96-a5d8-1f0c7e3b9a03", "Name": "Mina Park" } },
+    { "Id": "c6d92a44-81f5-4e27-b3aa-7c5e9d2f1104", "Name": "Jon Bell", "callsign_c": "NOMAD-7", "distance_c": 182, "rssi_c": -91, "status_c": "unpaired", "public_key_c": "0C7E·A2B9·D410·F6A1", "radio_c": "Sub-GHz Relay", "CreatedOn": "2026-09-26T16:00:00Z", "CreatedBy": { "Id": "c6d92a44-81f5-4e27-b3aa-7c5e9d2f1104", "Name": "Jon Bell" }, "ModifiedOn": "2026-09-26T16:00:00Z", "ModifiedBy": { "Id": "c6d92a44-81f5-4e27-b3aa-7c5e9d2f1104", "Name": "Jon Bell" } }
+  ]
+}

@@ -1,0 +1,15 @@
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import LoomShell from '@/components/LoomShell';
+import { useLoomState } from '@/components/LoomData';
+
+export const route = { path: '/requests', layout: 'owner', access: 'authenticated' };
+
+export default function Requests() {
+  const { peers, acceptRequest } = useLoomState();
+  const [tab, setTab] = useState('Received');
+  const received = peers.filter(peer => peer.status === 'pending_received');
+  const sent = peers.filter(peer => peer.status === 'pending_sent');
+  const list = tab === 'Received' ? received : sent;
+  return <LoomShell><div className="mx-auto max-w-3xl px-4 py-7 sm:px-6"><div className="flex items-end justify-between"><div><p className="font-mono text-[10px] uppercase tracking-[.2em] text-accent">SCREEN 05</p><h1 className="mt-1 font-heading text-3xl font-bold">Pair requests</h1></div><Link to="/nearby" className="rounded-lg border border-border px-3 py-2 text-xs font-semibold transition hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Back to radar</Link></div><div className="mt-6 grid grid-cols-2 rounded-xl bg-muted p-1">{['Received','Sent Pending'].map(item => <button key={item} type="button" onClick={() => setTab(item)} className={`rounded-lg px-4 py-3 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${tab === item ? 'bg-card shadow-xs' : 'text-muted-foreground hover:text-foreground'}`}>{item} ({item === 'Received' ? received.length : sent.length})</button>)}</div><div className="mt-5 space-y-3">{list.length === 0 ? <div className="rounded-[16px] border border-dashed border-border bg-card p-10 text-center"><p className="font-heading font-bold">No pending requests</p><p className="mt-1 text-sm text-muted-foreground">The mesh is quiet for now.</p></div> : list.map(peer => <article key={peer.id} className="rounded-[16px] border border-border bg-card p-5"><div className="flex items-center gap-4"><div className="grid size-12 place-items-center rounded-xl bg-muted font-heading font-bold">{peer.name.split(' ').map(x => x[0]).join('')}</div><div className="flex-1"><h2 className="font-heading font-bold">{peer.name}</h2><p className="font-mono text-[10px] text-muted-foreground">{peer.callsign} · {peer.distance}m · {peer.key}</p></div></div>{tab === 'Received' ? <div className="mt-4 flex gap-2"><button type="button" onClick={() => acceptRequest(peer.id)} className="flex-1 rounded-lg bg-primary px-4 py-3 text-xs font-bold text-primary-foreground transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Accept & exchange keys</button><button type="button" className="rounded-lg border border-border px-4 py-3 text-xs font-semibold transition hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Decline</button></div> : <div className="mt-4 flex items-center justify-between rounded-lg bg-secondary p-3 font-mono text-[10px]"><span>Pending countdown</span><span>14:22 remaining</span></div>}</article>)}</div></div></LoomShell>;
+}

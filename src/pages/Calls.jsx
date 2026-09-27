@@ -1,0 +1,17 @@
+import { useState } from 'react';
+import LoomShell from '@/components/LoomShell';
+import { useLoomState } from '@/components/LoomData';
+
+export const route = { path: '/calls', layout: 'owner', access: 'authenticated' };
+export const nav = { icon: 'PhoneCall', label: 'Calls', section: 'Mesh', order: 40, profiles: null };
+
+export default function Calls() {
+  const { peers, call, setCall } = useLoomState();
+  const [seconds, setSeconds] = useState(0);
+  const paired = peers.filter(peer => peer.status === 'paired');
+  if (call) {
+    setTimeout(() => setSeconds(value => value + 1), 1000);
+    return <LoomShell><div className="mx-auto max-w-2xl px-4 py-8"><div className="rounded-[20px] border border-border bg-card p-7 text-center shadow-md"><p className="font-mono text-[10px] uppercase tracking-[.2em] text-accent">SCREEN 10 · WIFI DIRECT</p><div className="mx-auto mt-8 grid size-24 place-items-center rounded-full bg-success-muted font-heading text-2xl font-bold text-success">{call.name.split(' ').map(x => x[0]).join('')}</div><h1 className="mt-5 font-heading text-3xl font-bold">{call.name}</h1><p className="mt-1 font-mono text-xs text-success">CONNECTED · OPUS · {String(Math.floor(seconds / 60)).padStart(2,'0')}:{String(seconds % 60).padStart(2,'0')}</p><div className="mx-auto my-10 flex max-w-md items-center justify-center gap-1">{Array.from({ length: 22 }, (_, i) => <span key={i} className="w-1 rounded-full bg-primary" style={{ height: `${12 + ((i * 17) % 35)}px` }}/>)}</div><div className="grid grid-cols-3 gap-3"><button type="button" className="rounded-lg border border-border bg-muted px-4 py-4 font-mono text-xs transition hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">MUTE</button><button type="button" className="rounded-lg border border-border bg-muted px-4 py-4 font-mono text-xs transition hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">PTT BURST</button><button type="button" onClick={() => { setCall(null); setSeconds(0); }} className="rounded-lg bg-accent px-4 py-4 font-mono text-xs font-bold text-accent-foreground transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">END RADIO CALL</button></div><div className="mt-5 grid grid-cols-2 gap-3 font-mono text-[10px] text-muted-foreground"><span>-52 dBm signal</span><span>14ms latency</span></div></div></div></LoomShell>;
+  }
+  return <LoomShell><div className="mx-auto max-w-4xl px-4 py-7 sm:px-6"><p className="font-mono text-[10px] uppercase tracking-[.2em] text-accent">SCREEN 10</p><h1 className="mt-1 font-heading text-3xl font-bold">Direct voice</h1><p className="mt-1 text-sm text-muted-foreground">Low-latency calls are available only after pairing.</p><div className="mt-6 space-y-3">{paired.map(peer => <div key={peer.id} className="flex items-center gap-4 rounded-[16px] border border-border bg-card p-4"><div className="grid size-12 place-items-center rounded-xl bg-muted font-heading font-bold">{peer.name.split(' ').map(x => x[0]).join('')}</div><div className="flex-1"><h2 className="font-heading font-bold">{peer.name}</h2><p className="font-mono text-[10px] text-muted-foreground">WiFi Direct · {peer.rssi} dBm</p></div><button type="button" onClick={() => setCall(peer)} className="rounded-lg bg-primary px-4 py-3 text-xs font-bold text-primary-foreground transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Start call</button></div>)}</div></div></LoomShell>;
+}
